@@ -1,0 +1,33 @@
+.ingredients-container {
+  background-color: #f1f1f1;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* .outside {
+  padding-top: 50px;
+  padding-bottom: 50px;
+} */
+
+
+.recipeDetailImg {
+  width: 200px;
+  height: auto;
+}
+/*recipeDetailImg size smaller screens*/
+@media only screen and (max-width: 600px) {
+  .recipeDetailImg {
+    width: 100px;
+    height: auto;
+  }
+}
+
+
+.btnFavorite {
+  margin-top: 20px;
+}
+
+.previewImg {
+  width: 262px;
+  height: 173px;
+}
