@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../repository.php';
+require_once __DIR__ . '/../repository.php';
 
 class FavouriteRepository extends Repository
 {
@@ -57,7 +57,7 @@ class FavouriteRepository extends Repository
         // execute the statement
         if (!$stmt->execute()) {
             $stmt = null;
-            header("location: ../../signup.php?error=stmtfailed");
+            header("location: ../../recipe.php?error=stmtfailed");
             exit();
         }
 
@@ -77,7 +77,7 @@ class FavouriteRepository extends Repository
         // execute the statement
         if (!$stmt->execute()) {
             $stmt = null;
-            header("location: ../../signup.php?error=stmtfailed");
+            header("location: ../../recipe.php?error=stmtfailed");
             exit();
         }
 

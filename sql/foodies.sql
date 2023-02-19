@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Gegenereerd op: 12 jan 2023 om 10:32
+-- Gegenereerd op: 14 jan 2023 om 16:04
 -- Serverversie: 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- PHP-versie: 8.0.25
 
@@ -18,15 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `developmentdb`
---
-CREATE DATABASE IF NOT EXISTS `developmentdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `developmentdb`;
---
 -- Database: `foodies`
 --
-CREATE DATABASE IF NOT EXISTS `foodies` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `foodies`;
 
 -- --------------------------------------------------------
 
@@ -44,8 +37,9 @@ CREATE TABLE `Favourites` (
 --
 
 INSERT INTO `Favourites` (`user_id`, `recipe_id`) VALUES
-(4, '7c5c31'),
-(4, '35120');
+(4, '47746'),
+(4, '46956'),
+(4, '47269');
 
 -- --------------------------------------------------------
 
@@ -66,9 +60,12 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`id`, `username`, `email`, `password`, `role`) VALUES
-(4, 'luc1', 'luc.moetwil@gmail.com', '$2y$10$FW02KH7bSeaYAVytOZB2C.5i9jSOm7vIbXkCSV485bNpMS2H/sDWy', 1),
-(6, 'mark', 'mark@mail.com', '$2y$10$1uLor.N5JXlLnBW1CFeMw.MSnYNCQqXBzftVJVx5ThtOGgAKbgDA.', 1),
-(8, 'test', 'test@gmail.com', '$2y$10$oUGtM7zwp2OUqQwCpi/vOeuL8kus/8BvXqcIz3VxCuggfI2zp2FNS', 1);
+(4, 'luc', 'luc.moetwil@gmail.com', '$2y$10$FW02KH7bSeaYAVytOZB2C.5i9jSOm7vIbXkCSV485bNpMS2H/sDWy', 1),
+(6, 'mark', 'mark@mail.com', '$2y$10$1uLor.N5JXlLnBW1CFeMw.MSnYNCQqXBzftVJVx5ThtOGgAKbgDA.', 0),
+(9, 'rick', 'rick@mail.com', '$2y$10$FW02KH7bSeaYAVytOZB2C.5i9jSOm7vIbXkCSV485bNpMS2H/sDWy', 0),
+(10, 'bart', 'bart@mail.com', '$2y$10$FW02KH7bSeaYAVytOZB2C.5i9jSOm7vIbXkCSV485bNpMS2H/sDWy', 0),
+(11, 'gerrit', 'gerrit@mail.com', '$2y$10$FW02KH7bSeaYAVytOZB2C.5i9jSOm7vIbXkCSV485bNpMS2H/sDWy', 0),
+(12, 'henk', 'henk@mail.com', '$2y$10$FW02KH7bSeaYAVytOZB2C.5i9jSOm7vIbXkCSV485bNpMS2H/sDWy', 0);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -88,7 +85,7 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT voor een tabel `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

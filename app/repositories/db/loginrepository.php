@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../repository.php';
+require_once __DIR__ . '/../repository.php';
 
 class LoginRepository extends Repository
 {
@@ -68,7 +68,7 @@ class LoginRepository extends Repository
             // set the session variables
             $_SESSION['userId'] = $user[0]["id"];
             $_SESSION['userUid'] = $user[0]["username"];
-            $_SESSION['userRole'] = $user[0]["role"];
+            $_SESSION['admin'] = $user[0]["role"] == 1 ? true : false;
         }
 
         $stmt = null;

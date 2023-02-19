@@ -1,6 +1,6 @@
 <?php
-require 'ApiController.php';
-require '../services/recipeservice.php';
+require_once 'apicontroller.php';
+require_once '../services/recipeservice.php';
 
 class RecipeController extends ApiController
 {
@@ -10,30 +10,47 @@ class RecipeController extends ApiController
 
     public function __construct()
     {
+        // create service object only if request method is GET
         if (!$_SERVER['REQUEST_METHOD'] == 'GET') return;
-        // $this->recipeId = $_GET['recipeId'];
-        // $this->recipeId = json_decode(file_get_contents('php://input'), true);
-        // $this->recipeId = $this->recipeId['recipeId'];
         $this->service = new RecipeService();
-        // $this->recipe = $this->service->getRecipeById($this->recipeId);
-
     }
 
     public function ingredients(){
-        $this->recipeId = $_GET['recipeId'];
+
+        // get recipeId from request body
+        $this->recipeId = htmlspecialchars($_GET['recipeId']) ;
+
+        // get recipe by id
         $recipe = $this->service->getRecipeById($this->recipeId);
 
+        // get ingredients
         $ingredients = $recipe->Ingredients;
-        $this->respond($ingredients);
+
+        // if no ingredients found respond with error 404 and message 'No ingredients found'
+        if(empty($ingredients)){
+            $this->respondWithError(404, 'No ingredients found');
+        }
+        else{
+            $this->respond($ingredients);
+        }
     }
 
 
     public function get()
     {
-        $this->recipeId = $_GET['recipeId'];
+        // get recipeId from request body
+        $this->recipeId = htmlspecialchars($_GET['recipeId']);
+
+        // get recipe by id
         $recipe = $this->service->getRecipeById($this->recipeId);
 
-        $this->respond($recipe);
+        // if no recipe found respond with error 404 and message 'Recipe not found'
+        if(empty($recipe)){
+            $this->respondWithError(404, 'Recipe not found');
+        }
+        else{
+            $this->respond($recipe);
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
-require __DIR__ . '/controller.php';
-require __DIR__ . '/../services/recipeservice.php';
+require_once __DIR__ . '/controller.php';
+require_once __DIR__ . '/../services/recipeservice.php';
 
 class RecipeController extends Controller
 {
@@ -11,12 +11,20 @@ class RecipeController extends Controller
     function __construct()
     {
         $this->recipeService = new RecipeService();
-        $this->recipe = $this->recipeService->getRecipeById($_GET['id']);
+        $this->recipe = $this->recipeService->getRecipeById(htmlspecialchars($_GET['id']));
     }
 
     public function index()
     {
-        $this->displayView($this->recipe);
+        // check if recipe is null  
+        if($this->recipe == null) {
+            echo '<script> window.location="/404" </script>';
+        }
+        else{
+            $this->displayView($this->recipe);
+        }
+
+        
     }
 
 }

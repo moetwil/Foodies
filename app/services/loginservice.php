@@ -1,7 +1,7 @@
 <?php
 //require __DIR__ . '/../repositories/api/components/reciperepository.php';
 // require reciperepository.php
-require __DIR__ . '/../repositories/db/loginrepository.php';
+require_once __DIR__ . '/../repositories/db/loginrepository.php';
 class LoginService
 {
     private $repository;
@@ -18,11 +18,11 @@ class LoginService
 
     public function login()
     {
+        // check if input is empty
         if ($this->emptyInput() == true) {
             header("location: /login?error=emptyinput");
             exit();
         }
-
 
         $this->repository->login($this->uid, $this->password);
     }

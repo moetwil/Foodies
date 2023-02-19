@@ -1,7 +1,7 @@
 <?php
-require 'ApiController.php';
-require '../services/favouriteservice.php';
-require '../services/recipeservice.php';
+require_once 'apicontroller.php';
+require_once '../services/favouriteservice.php';
+require_once '../services/recipeservice.php';
 
 class FavouritesController extends ApiController
 {
@@ -11,10 +11,11 @@ class FavouritesController extends ApiController
 
     public function __construct()
     {
+        // check if the request method is POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             // get the recipeId from the POST request
-            $this->recipeId = json_decode(file_get_contents('php://input'), true);
-            $this->recipeId = $this->recipeId['recipeId'];
+            $data = json_decode(file_get_contents('php://input'), true);
+            $this->recipeId = htmlspecialchars($data['recipeId']) ;
         }
         
         // get the userId from the session
@@ -33,7 +34,8 @@ class FavouritesController extends ApiController
         // delete recipe and return response
         if($this->service->deleteFromFavourites($this->recipeId)){
             $this->respond('Recipe deleted from favourites');
-        } else {
+        } 
+        else {
             $this->respondWithError(500, 'Something went wrong');
         }
     }
@@ -56,6 +58,12 @@ class FavouritesController extends ApiController
             array_push($recipes, $recipe);
         }
 
-        $this->respond($recipes);
+        // if no favourites found respond with error 404 and message 'No favourites found'
+        if(empty($recipes)){
+            $this->respondWithError(404, 'No favourites found');
+        }
+        else{
+            $this->respond($recipes);
+        }
     }
 }

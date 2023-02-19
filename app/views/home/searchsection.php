@@ -4,7 +4,7 @@
             <h4>explore</h4>
             <h2>Look for your favourite recipes!</h2>
         </div>
-        <div class="col">
+        <div class="col-lg-6 col-md-6 col-sm-12">
             <?php require_once(__DIR__ . '../../components/searchbar.php') ; ?>
         </div>
     </div>

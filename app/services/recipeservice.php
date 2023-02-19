@@ -1,7 +1,7 @@
 <?php
 //require __DIR__ . '/../repositories/api/components/reciperepository.php';
 // require reciperepository.php
-require __DIR__ . '/../repositories/api/reciperepository.php';
+require_once __DIR__ . '/../repositories/api/reciperepository.php';
 class RecipeService
 {
     private $repository;
@@ -20,6 +20,7 @@ class RecipeService
 
     public function getRecipesBySearch($searchWord)
     {
+        // check if searchword is valid
         if (!$this->checkValidSearchword($searchWord)) {
             return null;
         }

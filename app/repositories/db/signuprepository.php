@@ -1,11 +1,11 @@
 <?php
-require __DIR__ . '/../repository.php';
+require_once __DIR__ . '/../repository.php';
 
 class SignupRepository extends Repository
 {
     public function createUser($username, $email, $password)
     {
-        $role = 1;
+        $role = 0;
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = 'INSERT INTO Users (username, email, password, role) VALUES (:username, :email, :password, :role);';

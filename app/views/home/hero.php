@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <div class="row flex-lg-row-reverse align-items-center py-5">
             <div class="col-10 col-sm-8 col-lg-6 d-flex align-items-center justify-content-end mb-5">
-                <img class="img" src="<?php echo '/images/vegetables.png'; ?>" class="d-block mx-lg-auto"
+                <img class="img" src="<?= '/images/vegetables.png'; ?>" class="d-block mx-lg-auto"
                     alt="Header image" loading="lazy">
             </div>
             <div class="col-lg-6 px-5">

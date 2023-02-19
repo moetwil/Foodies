@@ -1,4 +1,13 @@
-# Usage
+# Web development 1 - Eindopdracht
+
+## Author
+
+Luc Moetwil - 686569 - INF2A
+
+## Usage
+
+The website is hosted on
+https://www.lucmoetwil.com
 
 In a terminal, run:
 
@@ -6,44 +15,20 @@ In a terminal, run:
 docker-compose up
 ```
 
-NGINX will now serve files in the app/public folder. Visit localhost in your browser to check.
-PHPMyAdmin is accessible on localhost:8080
+### Login
 
-If you want to stop the containers, press Ctrl+C.
-Or run:
-
-```bash
-docker-compose down
 ```
-
-## Login:
-
+Regular user
 username: mark
 password: 123
 
-## API's
+Admin user
+username: luc
+password: 123
+```
 
-search: https://forkify-api.herokuapp.com/api/search?q=pizza
-get: https://forkify-api.herokuapp.com/api/get?rId=47746
+### Available searchwords
 
-# TODO:
-
-[x] - 1-2 format mogelijk maken
-[x] - Geen SELECT * gebruiken in queries
-[x] - Input veilig maken (POST REQUESTS)
-[] - Input veilig maken (GET REQUESTS)
-[x] - Errors verwijderen uit console
-[x] - Echo veranderen naar <?= ?>
-[] - Bij elke API response gebruiken
-[] - Controller laadt includes niet in index
-[] - require once of require
-[x] - searchwords in readme
-[x] - responsive
-[] - JS cleanen
-[] - Popular recipes vullen met tekst en linken
-[x] - favourites buttons witte tekst maken
-
-## Available searchwords
 carrot
 broccoli
 asparagus

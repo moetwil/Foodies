@@ -1,7 +1,7 @@
 <?php
 //require __DIR__ . '/../repositories/api/components/reciperepository.php';
 // require reciperepository.php
-require __DIR__ . '/../repositories/db/favouriterepository.php';
+require_once __DIR__ . '/../repositories/db/favouriterepository.php';
 class FavouriteService
 {
     private $repository;

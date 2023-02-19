@@ -1,7 +1,7 @@
 <?php
 //require __DIR__ . '/../repositories/api/components/reciperepository.php';
 // require reciperepository.php
-require __DIR__ . '/../repositories/db/signuprepository.php';
+require_once __DIR__ . '/../repositories/db/signuprepository.php';
 class SignupService
 {
     private $repository;
@@ -28,22 +28,22 @@ class SignupService
         }
 
         if ($this->invalidUsername() == true) {
-            header("location: ../../signup.php?error=invalidusername");
+            header("location: /signup?error=invalidusername");
             exit();
         }
 
         if ($this->invalidEmail() == true) {
-            header("location: ../../signup.php?error=invalidemail");
+            header("location: /signup?error=invalidemail");
             exit();
         }
 
         if ($this->passwordMatch() == false) {
-            header("location: ../../signup.php?error=passwordsdontmatch");
+            header("location: /signup?error=passwordsdontmatch");
             exit();
         }
 
         if ($this->userExists() == true) {
-            header("location: ../../signup.php?error=usernametaken");
+            header("location: /signup?error=usernametaken");
             exit();
         }
 

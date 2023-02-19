@@ -1,7 +1,10 @@
 <div class="container py-5 ">
-    <div class="col py-5">
-        <h1>Searchresults for: <?= $_GET['search'] ?></h1>
+    <div class="row pt-5">
+        <div class="col">
+            <h1>Search results for: <?= htmlspecialchars($_GET['search'])  ?></h1>
+        </div>
     </div>
+    
     <div class="col">
         <div class="row ">
             <?php

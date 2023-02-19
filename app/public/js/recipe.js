@@ -4,18 +4,28 @@ const buttonContainer = document.getElementById('button-container');
 const ingredientContainer = document.querySelector('.ingredients-container');
 const amountInput = document.getElementById('amountInput');
 
+// event listeners
+amountInput.addEventListener('change', handleAmountInput);
+
+// check if the user is logged in
+checkLoggedIn();
+
+// get the ingredients from the server
+init();
+const ingredients = getIngredients();
+
 // check if the user is loggedIn
-const checkLoggedIn = async () => {
+async function checkLoggedIn() {
   const response = await fetch('/api/user/loggedIn');
   const data = await response.json();
 
+  // if data is false, create login text else check if the recipe is in favourites
   if (data === false) createLoginText();
   else checkFavourite();
-};
+}
 
-checkLoggedIn();
-
-const checkFavourite = async () => {
+// check if the recipe is in favourites
+async function checkFavourite() {
   // clear button container so there is no button
   buttonContainer.innerHTML = '';
 
@@ -35,34 +45,10 @@ const checkFavourite = async () => {
   // if data is false, create favourite button else create delete button
   if (data === false) createFavouriteButton();
   else createDeleteButton();
-};
+}
 
-const createFavouriteButton = () => {
-  const button = document.createElement('a');
-  button.id = 'favourite-button';
-  button.classList.add('rounded-pill', 'btnFavorite', 'btn', 'btn-primary');
-  button.textContent = 'Add to favourites';
-  button.addEventListener('click', handleFavouriteButton);
-  buttonContainer.appendChild(button);
-};
-
-const createDeleteButton = () => {
-  const deleteButton = document.createElement('a');
-  deleteButton.id = 'delete-button';
-  deleteButton.classList.add('button', 'btnDelete', 'btn', 'btn-primary');
-  deleteButton.textContent = 'Remove from favourites';
-  deleteButton.addEventListener('click', handleDeleteButton);
-  buttonContainer.appendChild(deleteButton);
-};
-
-const createLoginText = () => {
-  const text = document.createElement('p');
-  text.innerHTML =
-    'Make sure you <a class="link-success" href="/login">Login</a> to add to favourites';
-  buttonContainer.appendChild(text);
-};
-
-const handleFavouriteButton = async () => {
+// handle favourite button click
+async function handleFavouriteButton() {
   // create post request to add recipe to favourites
   const response = await fetch('/api/favourites/add', {
     method: 'POST',
@@ -76,11 +62,10 @@ const handleFavouriteButton = async () => {
 
   // check if recipe is in favourites to print the correct button
   checkFavourite();
-};
+}
 
-const handleDeleteButton = async () => {
-  console.log(recipeId);
-
+// handle delete button click
+async function handleDeleteButton() {
   // create post request
   const response = await fetch('/api/favourites/delete', {
     method: 'POST',
@@ -94,23 +79,20 @@ const handleDeleteButton = async () => {
 
   // check if recipe is in favourites to print the correct button
   checkFavourite();
-};
+}
 
 // INGREDIENTS
 
 // Fetches the ingredients for the given recipe ID from the server
-const getIngredients = async () => {
-    // Fetch the ingredients from the server
-    const response = await fetch(`/api/recipe/ingredients?recipeId=${recipeId}`);
-    // If the request failed, throw an error
-    if (!response.ok)
-        throw new Error('Error fetching ingredients');
-    // Otherwise, return the parsed JSON response
-    return await response.json();
-};
+async function getIngredients() {
+  const response = await fetch(`/api/recipe/ingredients?recipeId=${recipeId}`);
+  if (!response.ok) throw new Error('Error fetching ingredients');
 
+  // Otherwise, return the parsed JSON response
+  return await response.json();
+}
 
-const init = async () => {
+async function init() {
   try {
     const ingredients = await getIngredients();
     const newIngredients = calculateIngredients(1, ingredients);
@@ -118,13 +100,9 @@ const init = async () => {
   } catch (error) {
     console.error('Error:', error);
   }
-};
-init();
+}
 
-const ingredients = getIngredients();
-
-
-const fillIngredientsContainer = async (data) => {
+async function fillIngredientsContainer(data) {
   try {
     //clear container
     ingredientContainer.innerHTML = '';
@@ -140,96 +118,94 @@ const fillIngredientsContainer = async (data) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-const handleAmountInput = async () => {
+// handle amount input change
+async function handleAmountInput() {
   const amount = amountInput.value;
   const ingredientsData = await ingredients;
   calculateIngredients(amount, ingredientsData);
-};
+}
 
+// calculate the ingredients for the given amount
+function calculateIngredients(amount, ingredients) {
+  const multipliedIngredients = [];
 
-  
-  const calculateIngredients = (amount, ingredients) => {
-    const multipliedIngredients = [];
+  for (const ingredient of ingredients) {
+    // match the quantity and name of the ingredient
+    const match = ingredient.match(/^([\d/-]+)?\s*(.+)$/);
 
-    for (const ingredient of ingredients) {
-      const match = ingredient.match(/^([\d/-]+)?\s*(.+)$/);
-          if (match) {
+    // if there is a match, multiply the quantity with the amount
+    if (match) {
       let multipliedQuantity;
 
+      // destructuring the match array
       const [, quantityString, name] = match;
+
+      // check if the quantity is a fraction or a number
       if (quantityString) {
+        // check if the quantity is a fraction
         if (quantityString.includes('-')) {
+          // split the quantity string into integer and fraction
           const [integerPart, fractionalPart] = quantityString.split('-');
-          const [numerator, denominator] = fractionalPart.split('/').map(Number);
-          multipliedQuantity = (Number(integerPart) + numerator / denominator) * amount;
+
+          // split the fraction into numerator and denominator
+          const [numerator, denominator] = fractionalPart
+            .split('/')
+            .map(Number);
+          multipliedQuantity =
+            (Number(integerPart) + numerator / denominator) * amount;
         } else if (quantityString.includes('/')) {
-          const [numerator, denominator] = quantityString.split('/').map(Number);
-          multipliedQuantity = numerator / denominator * amount;
+          // split the quantity string into numerator and denominator
+          const [numerator, denominator] = quantityString
+            .split('/')
+            .map(Number);
+          multipliedQuantity = (numerator / denominator) * amount;
         } else {
+          // multiply the quantity with the amount
           multipliedQuantity = Number(quantityString) * amount;
         }
       } else {
         multipliedQuantity = amount;
       }
 
+      // push the multiplied quantity and name to the multipliedIngredients array
       multipliedIngredients.push(`${multipliedQuantity} ${name}`);
     } else {
       multipliedIngredients.push(ingredient);
     }
+  }
 
-
-      
-      // const match = ingredient.match(/(\d+)\s*([-]*\s*[\d\/]*)\s(.*)/);
-
-      // if (match) {
-      //   const [, integerPart, fractionalPart, name] = match;
-
-      //   let multipliedQuantity;
-
-      //   if (fractionalPart) {
-      //     const [numerator, denominator] = fractionalPart.split('/').map(Number);
-      //     multipliedQuantity = (Number(integerPart) + numerator / denominator) * amount;
-      //   } else {
-      //     multipliedQuantity = Number(integerPart) * amount;
-      //   }
-
-      //   multipliedIngredients.push(`${multipliedQuantity} ${name}`);
-      // } else {
-      //   multipliedIngredients.push(ingredient);
-      // }
-
-      // match the regex
-
-      // const matchBigFraction = ingredient.match(/^\d+-\d+\/\d+$/);
-      // const matchFraction = ingredient.match(/^\d+\/\d+$/);
-
-      // if (matchBigFraction) {
-      //   const [, integerPart, fractionalPart] = matchBigFraction;
-      //   const [numerator, denominator] = fractionalPart.split('/').map(Number);
-      //   multipliedQuantity = (Number(integerPart) + numerator / denominator) * amount;
-      //   } else if (matchFraction) {
-      //   const [, fractionalPart] = matchFraction;
-      //   const [numerator, denominator] = fractionalPart.split('/').map(Number);
-      //   multipliedQuantity = numerator / denominator * amount;
-      //   } else {
-      //   multipliedQuantity = Number(ingredient) * amount;
-      //   }
-
-      //   const nameMatch = ingredient.match(/\s(.*)/);
-      //   if (nameMatch) {
-      //   const [, name] = nameMatch;
-      //   multipliedIngredients.push(${multipliedQuantity} ${name});
-      //   } else {
-      //   multipliedIngredients.push(ingredient);
-      //   }
-    }
-
-    
-
-    fillIngredientsContainer(multipliedIngredients);
+  // fill the ingredients container with the multiplied ingredients
+  fillIngredientsContainer(multipliedIngredients);
 }
 
-amountInput.addEventListener('change', handleAmountInput);
+// FAVOURITES
 
+// create favourite button
+function createFavouriteButton() {
+  const button = document.createElement('a');
+  button.id = 'favourite-button';
+  button.classList.add('button', 'btnFavorite', 'btn', 'btn-primary');
+  button.textContent = 'Add to favourites';
+  button.addEventListener('click', handleFavouriteButton);
+  buttonContainer.appendChild(button);
+}
+
+// create delete button
+function createDeleteButton() {
+  const deleteButton = document.createElement('a');
+  deleteButton.id = 'delete-button';
+  deleteButton.classList.add('button', 'btnDelete', 'btn', 'btn-primary');
+  deleteButton.textContent = 'Remove from favourites';
+  deleteButton.addEventListener('click', handleDeleteButton);
+  buttonContainer.appendChild(deleteButton);
+}
+
+// create login text
+function createLoginText() {
+  const text = document.createElement('p');
+  text.innerHTML =
+    'Make sure you <a class="link-success" href="/login">Login</a> to add to favourites';
+  buttonContainer.appendChild(text);
+}

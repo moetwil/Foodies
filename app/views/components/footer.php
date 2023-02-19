@@ -12,9 +12,7 @@
                         About
                     </h6>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna
-                        aliqua. Ut enim ad minim veniam.
+                        Foodies is a website dedicated to providing delicious and easy-to-follow recipes for food enthusiasts. Whether you're a beginner cook or a seasoned pro, our website has something for everyone.
                 </div>
                 <!-- Grid column -->
 
@@ -22,13 +20,13 @@
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        Recepten
+                        Some categories
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Populair</a>
+                        <a href="/search?search=pizza" class="text-reset">Pizza</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Categories</a>
+                        <a href="/search?search=pasta" class="text-reset">Pasta</a>
                     </p>
                     <p>
                         <a href="#!" class="text-reset">
@@ -45,13 +43,16 @@
                         Account
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Login</a>
+                        <a href="/login" class="text-reset">Login</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Logout</a>
+                        <a href="/logout" class="text-reset">Logout</a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Favourites</a>
+                        <a href="/signup" class="text-reset">Signup</a>
+                    </p>
+                    <p>
+                        <a href="/favourites" class="text-reset">Favourites</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -62,7 +63,7 @@
                     <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
                     <p>Johan Cruijff Boulevard 1</p>
                     <p>
-                        info@example.com
+                        <a href="mailto:luc.moetwil@gmail.com"> info@foodies.com</a>
                     </p>
                     <p> <a href="tel:+31615695917"> +316 15 69 59 17</a>
                     </p>
@@ -76,7 +77,7 @@
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-        © 2022 Copyright: Luc Moetwil
+        © 2022 Copyright: Luc Moetwil - *THIS IS A SCHOOL PROJECT* (not for commercial use)
     </div>
     <!-- Copyright -->
 

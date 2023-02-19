@@ -13,12 +13,28 @@
     </div>
         <div class="navbar-collapse collapse" id="navbarResponsive" style="">
             <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-                <li class="nav-item"><a class="nav-link me-lg-3" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link me-lg-3" href="/">Home</a></li>
             </ul>
 
             <!-- Show login or logout button -->
             <?php
             if (isset($_SESSION['userId'])) {
+            ?>
+
+            <!-- check if session has admin on true -->
+            <?php
+            if ($_SESSION['admin'] == true) {
+            ?>
+
+            <button id="admin-button" class="btn btn-primary rounded-pill px-3 mb-2 mx-2 mb-lg-0"
+                data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                <span class="d-flex align-items-center">
+                    <i class="bi bi-database-fill me-2"></i>
+                    <span class="small">Admin</span>
+                </span>
+            </button>
+            <?php
+            }
             ?>
             <button id="favourites-button" class="btn btn-primary rounded-pill px-3 mb-2 mx-2 mb-lg-0"
                 data-bs-toggle="modal" data-bs-target="#feedbackModal">
