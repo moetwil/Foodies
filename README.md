@@ -6,9 +6,6 @@ Luc Moetwil - 686569 - INF2A
 
 ## Usage
 
-The website is hosted on
-https://www.lucmoetwil.com
-
 In a terminal, run:
 
 ```bash
